@@ -5,7 +5,6 @@ import http.client
 import json
 from retrying import retry
 from circuitbreaker import circuit
-from failsafe import Failsafe, RetryPolicy
 import logging
 
 logger = logging.getLogger(__name__)
@@ -13,7 +12,7 @@ logger = logging.getLogger(__name__)
 
 class TodoApiView(APIView):
 
-    # @circuit(failure_threshold=3, expected_exception=ConnectionError, recovery_timeout=60)
+    @circuit(failure_threshold=2, expected_exception=ConnectionError, recovery_timeout=60)
     @retry(stop_max_attempt_number=10, stop_max_delay=30000, wait_fixed=3000)
     def get(self, request, todo_id, *args, **kwargs):
         connection = http.client.HTTPConnection("localhost", 5002)
@@ -21,7 +20,7 @@ class TodoApiView(APIView):
         response = connection.getresponse()
         if response.status == 500:
             logger.error('--> FacadeApi RECEIVED a FAILURE')
-            raise ConnectionError("Error")
+            raise ConnectionError("Can't connect after 10 retries")
         else:
             result = response.read()
             json_data: dict = json.loads(result.decode("utf-8"))
