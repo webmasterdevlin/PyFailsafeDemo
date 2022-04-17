@@ -1,0 +1,27 @@
+<h1>Frontend to Facade API</h1>
+<form [formGroup]="todoForm" (ngSubmit)="onSubmit()">
+  <div
+    style="
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      justify-content: flex-start;
+    "
+  >
+    <div>
+      <label for="todoId">TODO FINDER</label>
+    </div>
+    <div>
+      <input
+        id="todoId"
+        formControlName="todoId"
+        type="number"
+        placeholder="what's the id?"
+        autocomplete="false"
+      />
+    </div>
+    <div>
+      <button type="submit">SEND</button>
+    </div>
+  </div>
+</form>
