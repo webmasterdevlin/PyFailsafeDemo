@@ -20,8 +20,17 @@
         autocomplete="false"
       />
     </div>
-    <div>
-      <button type="submit">SEND</button>
+    <div *ngIf="isLoading; else elseBlock">
+      <h3>Sending.. Please wait..</h3>
     </div>
+    <ng-template #elseBlock
+      ><button style="width: 6rem" type="submit">SEND</button></ng-template
+    >
   </div>
 </form>
+<h4>
+  <div *ngIf="todo">
+    <div *ngIf="todo.id">ID: {{ todo.id }}</div>
+    <div *ngIf="todo.activity">Activity: {{ todo.activity }}</div>
+  </div>
+</h4>

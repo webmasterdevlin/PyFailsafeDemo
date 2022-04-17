@@ -1,7 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { catchError, finalize, of } from 'rxjs';
+import { finalize } from 'rxjs';
+import { Todo } from './Todo';
 
 @Component({
   selector: 'resilience-devlin-root',
@@ -10,6 +11,11 @@ import { catchError, finalize, of } from 'rxjs';
 })
 export class AppComponent implements OnInit {
   todoForm: FormGroup;
+  isLoading = false;
+  todo: Todo = {
+    id: 0,
+    activity: '',
+  };
 
   constructor(private fb: FormBuilder, private _httpClient: HttpClient) {
     this.todoForm = this.fb.group({
@@ -20,18 +26,19 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {}
 
   onSubmit() {
-    console.log(this.todoForm.value);
     const id: number = this.todoForm.value.todoId;
+    this.todo = {
+      id: 0,
+      activity: '',
+    };
+    this.isLoading = true;
     this._httpClient
-      .get(`http://localhost:8000/todos/${id}`)
-      .pipe(
-        catchError((error) => {
-          console.log('ERROR: ', error);
-          return of(null);
-        })
-      )
+      .get<Todo>(`http://localhost:8000/todos/${id}`)
+      .pipe(finalize(() => (this.isLoading = false)))
       .subscribe((data) => {
         console.log('DATA: ', data);
+        this.isLoading = false;
+        this.todo = data;
       });
   }
 }
