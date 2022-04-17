@@ -8,7 +8,7 @@ logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/facade-todos")
 
 
-@circuit(failure_threshold=2)
+@circuit(failure_threshold=3, expected_exception=ConnectionError, recovery_timeout=60)
 @router.get("/{todo_id}", response_model=dict)
 def get_todo_by_id(todo_id: int) -> dict:
     connection = http.client.HTTPConnection("localhost", 5002)
@@ -16,7 +16,7 @@ def get_todo_by_id(todo_id: int) -> dict:
     response = connection.getresponse()
     if response.status != 200:
         logger.info("--> FacadeApi RECEIVED a FAILURE")
-        raise HTTPException(status_code=response.status, detail="Error getting todo")
+        raise ConnectionError("Error")
     else:
         logger.info("--> FacadeApi RECEIVED a SUCCESS")
         result = response.read()
