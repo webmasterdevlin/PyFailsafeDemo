@@ -3,9 +3,9 @@ from rest_framework.response import Response
 from rest_framework import status
 import http.client
 import json
+import logging
 from retrying import retry
 from circuitbreaker import circuit
-import logging
 
 logger = logging.getLogger(__name__)
 
@@ -22,7 +22,7 @@ def shipping(request, shipping_id):
             logger.error('--> FacadeApi RECEIVED a FAILURE')
             raise ConnectionError("Can't connect after 10 retries")
         else:
+            logger.error('--> FacadeApi RECEIVED a SUCCESS')
             result = response.read()
             json_data: dict = json.loads(result.decode("utf-8"))
-            logger.error('--> FacadeApi RECEIVED a SUCCESS')
             return Response(json_data, status=status.HTTP_200_OK)
