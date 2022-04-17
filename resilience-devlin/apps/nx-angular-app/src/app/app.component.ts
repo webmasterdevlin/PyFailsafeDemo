@@ -26,19 +26,16 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {}
 
   onSubmit() {
-    const id: number = this.todoForm.value.todoId;
     this.todo = {
       id: 0,
       activity: '',
     };
     this.isLoading = true;
+
+    const id: number = this.todoForm.value.todoId;
     this._httpClient
       .get<Todo>(`http://localhost:8000/todos/${id}`)
       .pipe(finalize(() => (this.isLoading = false)))
-      .subscribe((data) => {
-        console.log('DATA: ', data);
-        this.isLoading = false;
-        this.todo = data;
-      });
+      .subscribe((data) => (this.todo = data));
   }
 }

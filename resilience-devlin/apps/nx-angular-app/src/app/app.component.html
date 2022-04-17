@@ -24,12 +24,22 @@
       <h3>Sending.. Please wait..</h3>
     </div>
     <ng-template #elseBlock
-      ><button style="width: 6rem" type="submit">SEND</button></ng-template
+      ><button
+        style="
+          width: 6rem;
+          background-color: crimson;
+          border: solid 0 transparent;
+          color: white;
+        "
+        type="submit"
+      >
+        FETCH TODO
+      </button></ng-template
     >
   </div>
 </form>
 <h4>
-  <div *ngIf="todo">
+  <div *ngIf="todo" style="color: purple">
     <div *ngIf="todo.id">ID: {{ todo.id }}</div>
     <div *ngIf="todo.activity">Activity: {{ todo.activity }}</div>
   </div>
