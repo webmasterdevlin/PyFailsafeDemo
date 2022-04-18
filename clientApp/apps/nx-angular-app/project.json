@@ -2,7 +2,7 @@
   "projectType": "application",
   "root": "apps/nx-angular-app",
   "sourceRoot": "apps/nx-angular-app/src",
-  "prefix": "resilience-devlin",
+  "prefix": "client-app",
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",

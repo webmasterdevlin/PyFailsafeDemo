@@ -1,5 +1,5 @@
 {
-  "npmScope": "resilience-devlin",
+  "npmScope": "client-app",
   "affected": {
     "defaultBase": "main"
   },

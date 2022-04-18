@@ -21,7 +21,7 @@
           "error",
           {
             "type": "element",
-            "prefix": "resilience-devlin",
+            "prefix": "client-app",
             "style": "kebab-case"
           }
         ]

@@ -5,7 +5,7 @@ import { finalize } from 'rxjs';
 import { Todo } from './Todo';
 
 @Component({
-  selector: 'resilience-devlin-root',
+  selector: 'client-app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
