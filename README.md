@@ -1,9 +1,13 @@
-# Creating resiliency in microservices using Pyfailsafe
+# Creating resiliency in microservices using retry and circuit breaker design patterns
+
+## Todo Service
+
+- http://127.0.0.1:5002/docs
 
 ## Facade API
 
 - http://127.0.0.1:5000/docs
 
-## Todo Service
+## Client App
 
-- http://127.0.0.1:5002/docs
+- http://localhost:4200
